@@ -4,8 +4,13 @@
 
 Projeto acadêmico da disciplina de Desenvolvimento Mobile, feito com **React Native + TypeScript + Expo + Expo Router**.
 
-- **Autor:** _seu nome_
-- **Disciplina / Instituição:** _preencha_
+- **Autores:**
+1. Bruno Otavio Silva De Oliveira RM556196
+2. Guilherme Flores Pereira de Almeida RM554948
+3. Leonardo Gonçalves Novaes RM554807
+4. Luiz Fernando de Aragão Souza RM555561
+5. Marcello de Freitas Moreira RM557531
+
 - **Vídeo de demonstração:** _link_
 
 ---
@@ -24,7 +29,7 @@ Perder tempo no trânsito é um problema diário de estudantes e trabalhadores. 
 
 | Tela | O que faz |
 |---|---|
-| **Login / Criar conta** | Autenticação por e-mail e senha (Firebase Authentication), com recuperação de senha |
+| **Login / Criar conta** | Autenticação por e-mail e senha (Firebase Authentication) |
 | **Início** | Mapa de São Paulo com incidentes ativos e card da *próxima rotina* |
 | **Minhas rotas** | Lista, exclusão e acesso à verificação de cada rotina |
 | **Nova rota** | Nome, origem/destino (busca real de endereços), horário de saída e dias da semana |
@@ -97,7 +102,9 @@ users/{uid}/incidents/{id}  type, title, street, latitude, longitude, radiusM,
 users/{uid}/alerts/{id}     routineId, routineName, message, delayMinutes, hadAlternative, createdAt
 ```
 
-Os dados são separados por usuário: `{uid}` é o **uid do Firebase Authentication**. Cada usuário só enxerga e altera o que está sob o próprio `uid`, e isso é garantido pelas **regras de segurança** do Firestore (seção 7.2).
+Os dados são separados por usuário: `{uid}` é o **uid do Firebase Authentication**. Cada usuário só enxerga e altera o que está sob o próprio `uid`, e isso é garantido pelas **regras de segurança** do Firestore
+
+Não tem necessidade de incluir credênciais para o projeto, pois elas já estão no código PROPOSITALMENTE para evitar a necessidade de criar conta em sites externos para usar a API de gps
 
 ### Autenticação
 
@@ -125,42 +132,8 @@ Os dados são separados por usuário: `{uid}` é o **uid do Firebase Authenticat
 git clone <url-do-repositorio>
 cd rotaalerta
 npm install
-cp .env.example .env.local      # Windows: copy .env.example .env.local
-# preencha as chaves (seções 7.1 e 7.2)
 npx expo start -c
 ```
-
-Escaneie o QR Code com o Expo Go. Sempre que alterar o `.env.local`, reinicie com `npx expo start -c`.
-
-### 7.1 Chave do OpenRouteService (gratuita)
-
-1. Crie uma conta em <https://openrouteservice.org/dev/#/signup>.
-2. No painel, crie um token do tipo **Free**.
-3. Cole o valor em `EXPO_PUBLIC_ORS_API_KEY` no `.env.local`.
-
-### 7.2 Firebase (Authentication + Firestore)
-
-1. No [console do Firebase](https://console.firebase.google.com), crie um projeto.
-2. **Authentication → Começar → Método de login → E-mail/senha → Ativar → Salvar.**
-3. **Firestore Database → Criar banco de dados** (edição Standard, região `southamerica-east1`).
-4. Em **Configurações do projeto → Seus apps**, registre um app **Web** e copie o `firebaseConfig`.
-5. Preencha as variáveis `EXPO_PUBLIC_FIREBASE_*` no `.env.local`, sem aspas.
-6. Em Firestore → **Regras**, cole e **publique**:
-
-   ```
-   rules_version = '2';
-   service cloud.firestore {
-     match /databases/{database}/documents {
-       match /users/{uid}/{document=**} {
-         allow read, write: if request.auth != null && request.auth.uid == uid;
-       }
-     }
-   }
-   ```
-
-   Com essa regra, cada usuário lê e escreve apenas em `users/{seu uid}/...`. Qualquer tentativa de acessar dados de outra pessoa é negada pelo servidor.
-
-Se as variáveis do Firebase não forem preenchidas, o app usa armazenamento local (AsyncStorage) e não exige login. A tela **Ajustes** mostra qual modo está em uso.
 
 ## 8. Roteiro de uso (demonstração)
 
@@ -184,17 +157,6 @@ Se as variáveis do Firebase não forem preenchidas, o app usa armazenamento loc
 | Aderência ao problema | Detecção de problemas, alternativa e nova chegada antes da saída |
 | Documentação | Este README |
 
-## 10. Limitações e trabalhos futuros
-
-- **Incidentes simulados:** integrar uma API de tráfego real.
-- **Tempos sem trânsito ao vivo:** limitação do OpenRouteService.
-- **Rastreio apenas com o app aberto** (sem execução em segundo plano).
-- **Verificação manual:** futuramente, notificações locais agendadas antes do horário de saída.
-- **Login social** (Google): exige configuração extra fora do Expo Go.
-- **Verificação de e-mail** e exclusão de conta pelo app.
-- **Aprendizado de rotina:** detectar automaticamente o horário em que o usuário costuma sair.
-- **Transporte público real:** hoje o "metrô parado" é um cenário simulado que aumenta o fluxo de carros.
-
-## 11. Tecnologias
+## 10. Tecnologias
 
 Expo (SDK 58), React Native, TypeScript, Expo Router, react-native-maps, expo-location, Firebase Authentication, Firebase Firestore, OpenRouteService e AsyncStorage.
