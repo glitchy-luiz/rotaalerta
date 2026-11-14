@@ -11,7 +11,7 @@ Projeto acadêmico da disciplina de Desenvolvimento Mobile, feito com **React Na
 4. Luiz Fernando de Aragão Souza RM555561
 5. Marcello de Freitas Moreira RM557531
 
-- **Vídeo de demonstração:** _link_
+- **Vídeo de demonstração:** https://youtube.com/shorts/SjZe_FADHw4
 
 ---
 
