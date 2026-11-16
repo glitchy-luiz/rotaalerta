@@ -53,13 +53,12 @@ export default function RouteDetail() {
     load();
   }, [load]);
 
-  // Núcleo: recalcula localmente sempre que rotas ou incidentes mudam (não gasta cota da API).
+  // recalcula localmente sempre que rotas ou incidentes mudam
   const analysis = useMemo(
     () => (routine && routes ? analyzeRoutine(routes, incidents, parseTimeToDate(routine.departureTime)) : null),
     [routine, routes, incidents],
   );
 
-  // Registra o alerta no histórico (uma vez por mensagem distinta).
   useEffect(() => {
     if (!analysis || !routine || analysis.status !== 'delayed') return;
     if (savedMessage.current === analysis.message) return;
@@ -78,7 +77,7 @@ export default function RouteDetail() {
       .catch(() => {});
   }, [analysis, routine]);
 
-  // Ajusta o zoom para mostrar todas as rotas.
+  // zoom das rotas
   useEffect(() => {
     if (!routes) return;
     const t = setTimeout(() => {
