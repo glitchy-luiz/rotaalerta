@@ -3,13 +3,7 @@ import { getAuthInstance } from './auth';
 import { firebaseConfigured } from './firebase';
 
 const KEY = '@rotaalerta:userId';
-
-/**
- * Identidade do usuário para o acesso a dados (users/{uid}/...).
- *
- * - Com Firebase configurado: é o uid do usuário autenticado (Firebase Auth).
- * - Sem Firebase (modo local): um ID gerado e guardado no aparelho.
- */
+/// não usa login firebasew se n tiver configurado
 export async function getUserId(): Promise<string> {
   if (firebaseConfigured) {
     const auth = getAuthInstance();
