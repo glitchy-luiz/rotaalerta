@@ -19,7 +19,7 @@ function Row({ label, value, color }: { label: string; value: string; color?: st
   );
 }
 
-/** Alerta principal. Usa ícone + texto (não depende só de cor) e tem rótulo completo para leitores de tela. */
+/** Alerta principal*/
 export function AlertCard({ analysis }: { analysis: Analysis }) {
   const { colors } = useTheme();
 
