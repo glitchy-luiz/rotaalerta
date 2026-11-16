@@ -9,7 +9,6 @@ export type AuthUser = { uid: string; email: string | null; name: string | null 
 type AuthValue = {
   user: AuthUser | null;
   loading: boolean;
-  /** true quando o Firebase está configurado e o login é exigido */
   requiresLogin: boolean;
   isLoggedIn: boolean;
   signIn: (email: string, password: string) => Promise<void>;
@@ -40,7 +39,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const signUp = useCallback(async (name: string, email: string, password: string) => {
     const u = await registerWithEmail(name, email, password);
-    setUser(toUser(u)); // já com o nome atualizado
+    setUser(toUser(u));
   }, []);
 
   const signOut = useCallback(async () => {
