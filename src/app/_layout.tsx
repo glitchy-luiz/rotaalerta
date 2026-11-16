@@ -27,7 +27,6 @@ function Navigator() {
           contentStyle: { backgroundColor: colors.bg },
         }}
       >
-        {/* Telas protegidas: só existem para quem está logado */}
         <Stack.Protected guard={isLoggedIn}>
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
           <Stack.Screen name="route/new" options={{ title: 'Nova rota de rotina' }} />
@@ -35,7 +34,6 @@ function Navigator() {
           <Stack.Screen name="tracking/[id]" options={{ title: 'Rastreio' }} />
         </Stack.Protected>
 
-        {/* Telas públicas: só existem para quem NÃO está logado */}
         <Stack.Protected guard={!isLoggedIn}>
           <Stack.Screen name="login" options={{ headerShown: false }} />
           <Stack.Screen name="register" options={{ title: 'Criar conta' }} />
