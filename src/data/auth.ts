@@ -9,15 +9,11 @@ import {
   signOut as fbSignOut,
   updateProfile,
 } from 'firebase/auth';
-// getReactNativePersistence existe no build React Native do Firebase (Metro resolve com a condição
-// "react-native"), mas os tipos padrão de 'firebase/auth' não a declaram. Por isso o ts-expect-error.
-// @ts-expect-error tipos de 'firebase/auth' não incluem a versão React Native
 import { getReactNativePersistence } from 'firebase/auth';
 import { getFirebaseApp } from './firebase';
 
 let auth: Auth | null = null;
 
-/** Auth com persistência em AsyncStorage: o usuário continua logado ao reabrir o app. */
 export function getAuthInstance(): Auth {
   if (auth) return auth;
   const app = getFirebaseApp();
@@ -45,7 +41,7 @@ export const logout = () => fbSignOut(getAuthInstance());
 
 export const sendReset = (email: string) => sendPasswordResetEmail(getAuthInstance(), email.trim());
 
-/** Traduz códigos de erro do Firebase para mensagens simples em português. */
+/** tradução de erros do firebase */
 export function friendlyAuthError(e: any): string {
   switch (e?.code) {
     case 'auth/invalid-email':
