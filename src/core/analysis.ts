@@ -1,9 +1,4 @@
-/**
- * NÚCLEO DO PROJETO: detecção de problemas em rotas de rotina.
- *
- * Entrada: rotas reais (OpenRouteService) + incidentes (simulados no Firestore) + horário de saída.
- * Saída: se há problema, qual, atraso, nova chegada e melhor rota alternativa.
- */
+
 import { Incident, IncidentType, RouteOption } from '../types';
 import { distanceToPolylineM } from './geo';
 import { formatDuration, formatTime } from './format';
@@ -17,9 +12,9 @@ export const INCIDENT_META: Record<IncidentType, { title: string; icon: string; 
 };
 
 export type AlternativeInfo = {
-  index: number; // posição em routes[]
+  index: number;
   route: RouteOption;
-  durationMin: number; // já inclui atrasos que caiam sobre ela
+  durationMin: number;
   delayMin: number;
   arrival: Date;
   savingMin: number;
